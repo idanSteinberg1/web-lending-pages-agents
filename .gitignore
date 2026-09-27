@@ -1,0 +1,11 @@
+node_modules/
+.DS_Store
+.env*
+# generated per project run
+projects/*/site/node_modules/
+projects/*/site/dist/
+projects/*/qa/
+quick/*-shots/
+audit*/
+motion/
+*.webm

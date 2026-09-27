@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Site brief",
+  "type": "object",
+  "required": ["client", "siteType", "goals", "audience", "pages", "locale"],
+  "properties": {
+    "client": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "industry": { "type": "string" },
+        "oneLiner": { "type": "string", "description": "What they do, in one sentence" },
+        "contact": { "type": "string" }
+      }
+    },
+    "siteType": { "enum": ["landing", "marketing", "store", "webapp"] },
+    "stack": { "type": "string", "description": "Chosen per CLAUDE.md stack defaults, with reason" },
+    "goals": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "goal": { "type": "string" },
+          "metric": { "type": "string", "description": "e.g. leads/month, purchases, calls" }
+        }
+      }
+    },
+    "primaryAction": { "type": "string", "description": "The one thing a visitor should do" },
+    "audience": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "persona": { "type": "string" },
+          "pains": { "type": "array", "items": { "type": "string" } },
+          "awareness": { "enum": ["unaware", "pain-aware", "solution-aware", "product-aware"] }
+        }
+      }
+    },
+    "offer": {
+      "type": "object",
+      "properties": {
+        "products": { "type": "array", "items": { "type": "string" } },
+        "pricing": { "type": "string" },
+        "guarantee": { "type": "string" },
+        "differentiators": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "objections": { "type": "array", "items": { "type": "string" } },
+    "pages": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "slug": { "type": "string" },
+          "purpose": { "type": "string" },
+          "mustInclude": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "features": { "type": "array", "items": { "type": "string" }, "description": "forms, booking, blog, cart, i18n, CMS..." },
+    "integrations": { "type": "array", "items": { "type": "string" }, "description": "analytics, pixels, CRM, payments, WhatsApp..." },
+    "brand": {
+      "type": "object",
+      "properties": {
+        "existingAssets": { "type": "array", "items": { "type": "string" }, "description": "logo, colors, fonts, photos" },
+        "personality": { "type": "array", "items": { "type": "string" } },
+        "mustAvoid": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "references": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": { "url": { "type": "string" }, "whatTheyLike": { "type": "string" } }
+      }
+    },
+    "competitors": { "type": "array", "items": { "type": "string" } },
+    "content": {
+      "type": "object",
+      "properties": {
+        "provided": { "type": "array", "items": { "type": "string" } },
+        "proof": { "type": "array", "items": { "type": "string" }, "description": "real reviews, numbers, logos, certifications only" }
+      }
+    },
+    "locale": {
+      "type": "object",
+      "properties": { "lang": { "type": "string" }, "dir": { "enum": ["rtl", "ltr"] } }
+    },
+    "constraints": { "type": "array", "items": { "type": "string" }, "description": "deadline, budget, hosting, legal" },
+    "assumptions": { "type": "array", "items": { "type": "string" } },
+    "sources": {
+      "type": "object",
+      "description": "field path -> where in spec/ it came from",
+      "additionalProperties": { "type": "string" }
+    }
+  }
+}

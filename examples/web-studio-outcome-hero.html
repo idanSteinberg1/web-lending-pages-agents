@@ -1,0 +1,924 @@
+<title>עידן שטיינברג אתרים</title>
+<meta name="description" content="בניית אתרי תדמית, דפי נחיתה וחנויות אינטרנטיות לעסקים קטנים ובינוניים.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700&family=IBM+Plex+Mono:wght@500&family=Rubik:wght@500;700;800;900&display=swap">
+<script>document.documentElement.setAttribute('dir','rtl');document.documentElement.setAttribute('lang','he');document.documentElement.classList.add('js');</script>
+<style>
+:root{
+  --paper:#FFFFFF; --surface:#F4F3FA; --ink:#0E1433; --muted:#555B78; --line:#E3E2EF;
+  --navy:#0E1433; --navy-2:#18204A; --on-navy:#F3F4FB; --on-navy-muted:#B3B8D6; --grid-line:rgba(255,255,255,.06);
+  --violet:#6246EA; --violet-ink:#FFFFFF; --violet-soft:#ECE8FF; --violet-text:#5438D6; --violet-light:#A898FF;
+  --ok:#1E9E6A; --todo-bg:#FFF3C4; --todo-ink:#5E4700; --shadow:0 30px 70px -30px rgba(14,20,51,.45);
+  --font-display:"Rubik","Assistant",system-ui,sans-serif;
+  --font-body:"Assistant","Rubik",system-ui,sans-serif;
+  --font-mono:"IBM Plex Mono",ui-monospace,monospace;
+  --dur-fast:180ms; --dur-base:320ms; --dur-slow:600ms;
+  --ease-out:cubic-bezier(.22,1,.36,1); --ease-spring:cubic-bezier(.34,1.56,.64,1);
+  --dir:-1; --radius:20px; --header-h:68px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --paper:#0A0F27; --surface:#111838; --ink:#EEF0FB; --muted:#A6ABC8; --line:#252D58;
+    --navy:#131A42; --navy-2:#1C2556; --on-navy:#F3F4FB; --on-navy-muted:#B3B8D6;
+    --violet:#9B87FF; --violet-ink:#0A0F27; --violet-soft:#211A52; --violet-text:#B4A5FF; --violet-light:#B9ADFF;
+    --ok:#3CCB8F; --todo-bg:#3A300E; --todo-ink:#FFE08A; --shadow:0 30px 70px -30px rgba(0,0,0,.75);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:#0A0F27; --surface:#111838; --ink:#EEF0FB; --muted:#A6ABC8; --line:#252D58;
+  --navy:#131A42; --navy-2:#1C2556; --on-navy:#F3F4FB; --on-navy-muted:#B3B8D6;
+  --violet:#9B87FF; --violet-ink:#0A0F27; --violet-soft:#211A52; --violet-text:#B4A5FF; --violet-light:#B9ADFF;
+  --ok:#3CCB8F; --todo-bg:#3A300E; --todo-ink:#FFE08A; --shadow:0 30px 70px -30px rgba(0,0,0,.75);
+}
+@media (prefers-reduced-motion: reduce){ :root{ --dur-fast:1ms; --dur-base:1ms; --dur-slow:1ms; } }
+
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--paper);color:var(--ink);font-family:var(--font-body);font-size:1.125rem;line-height:1.65;-webkit-font-smoothing:antialiased}
+.page{overflow-x:clip}
+a{color:inherit}
+h1,h2,h3{font-family:var(--font-display);line-height:1.06;margin:0;text-wrap:balance;letter-spacing:-.02em}
+p{margin:0}
+button{font:inherit;color:inherit}
+.wrap{max-width:1240px;margin-inline:auto;padding-inline:clamp(16px,4vw,40px)}
+.section{padding-block:clamp(72px,10vw,128px)}
+.path{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-mono);font-size:.85rem;color:var(--violet-text)}
+.path code{direction:ltr;unicode-bidi:isolate;font:inherit;background:var(--violet-soft);padding:3px 9px;border-radius:99px}
+.path span{font-family:var(--font-body);font-weight:700;color:var(--muted);font-size:.95rem}
+.section-head{display:grid;gap:16px;margin-block-end:clamp(36px,5vw,56px)}
+.section-head h2{font-size:clamp(2.1rem,4.6vw,3.8rem);font-weight:800;max-width:18ch}
+.section-head p{color:var(--muted);font-size:1.2rem;max-width:56ch}
+.todo{background:var(--todo-bg);color:var(--todo-ink);border-radius:6px;padding:0 .35em;font-size:.92em;font-weight:600;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.skip{position:absolute;inset-inline-start:12px;inset-block-start:-60px;background:var(--violet);color:var(--violet-ink);padding:10px 16px;border-radius:10px;z-index:100;text-decoration:none}
+.skip:focus{inset-block-start:12px}
+:focus-visible{outline:3px solid var(--violet);outline-offset:3px;border-radius:6px}
+
+/* Buttons */
+.btn{--bg:var(--violet);--fg:var(--violet-ink);display:inline-flex;align-items:center;justify-content:center;gap:.6rem;min-block-size:54px;padding-inline:28px;border-radius:999px;background:var(--bg);color:var(--fg);font-family:var(--font-display);font-weight:700;font-size:1.02rem;text-decoration:none;border:0;cursor:pointer;transition:transform var(--dur-fast) var(--ease-out),background-color var(--dur-fast)}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:scale(.97)}
+.btn svg{inline-size:20px;block-size:20px;flex:none}
+.btn-ghost{--bg:transparent;--fg:currentColor;box-shadow:inset 0 0 0 1.5px color-mix(in srgb,currentColor 30%,transparent)}
+.btn-ghost:hover{box-shadow:inset 0 0 0 1.5px currentColor}
+.btn-sm{min-block-size:44px;padding-inline:20px;font-size:.95rem}
+
+/* Header + mobile nav */
+.site-header{position:sticky;top:env(safe-area-inset-top,0px);z-index:60;background:color-mix(in srgb,var(--paper) 86%,transparent);backdrop-filter:saturate(1.4) blur(12px);-webkit-backdrop-filter:saturate(1.4) blur(12px)}
+.header-row{display:flex;align-items:center;justify-content:space-between;gap:16px;min-block-size:var(--header-h)}
+.logo{display:inline-flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--font-display);font-weight:800;font-size:1.15rem;white-space:nowrap}
+.logo-mark{inline-size:34px;block-size:34px;border-radius:10px;background:var(--navy);color:var(--on-navy);display:grid;place-items:center;font-family:var(--font-mono);font-size:.8rem;letter-spacing:-.04em;direction:ltr}
+.logo-mark b{color:var(--violet-light);font-weight:500}
+.header-actions{display:flex;align-items:center;gap:10px}
+.nav-toggle{display:inline-grid;place-items:center;inline-size:44px;block-size:44px;border-radius:12px;border:0;background:var(--surface);cursor:pointer}
+.nav-toggle svg path{transition:transform var(--dur-base) var(--ease-out),opacity var(--dur-fast);transform-origin:center}
+.nav-toggle[aria-expanded="true"] .l1{transform:translateY(5px) rotate(45deg)}
+.nav-toggle[aria-expanded="true"] .l2{opacity:0}
+.nav-toggle[aria-expanded="true"] .l3{transform:translateY(-5px) rotate(-45deg)}
+html.nav-locked{overflow:hidden}
+.site-nav ul{list-style:none;margin:0;padding:0}
+.site-nav a{text-decoration:none;font-weight:600}
+@media (max-width:899px){
+  .site-nav{position:fixed;inset:0;inset-block-start:calc(var(--header-h) + env(safe-area-inset-top,0px));z-index:70;background:var(--paper);padding:32px clamp(16px,4vw,40px);transform:translateX(calc(100% * var(--dir)));visibility:hidden;transition:transform var(--dur-base) var(--ease-out),visibility 0s linear var(--dur-base)}
+  .site-nav[data-open="true"]{transform:none;visibility:visible;transition:transform var(--dur-base) var(--ease-out)}
+  .site-nav ul{display:grid;gap:6px}
+  .site-nav li a{display:block;padding-block:14px;font-family:var(--font-display);font-size:1.8rem;font-weight:700;border-block-end:1px solid var(--line)}
+}
+@media (max-width:420px){.header-actions .btn{padding-inline:14px;font-size:.88rem}}
+@media (max-width:379px){.logo-text{display:none}}
+@media (min-width:900px){
+  .nav-toggle{display:none}
+  .site-nav ul{display:flex;align-items:center;gap:32px}
+  .site-nav a{color:var(--muted);transition:color var(--dur-fast)}
+  .site-nav a:hover{color:var(--ink)}
+}
+
+/* ============ HERO: pick your business, see your site ============ */
+.hero{margin-inline:clamp(8px,1.4vw,20px);border-radius:clamp(24px,3vw,40px);background:
+  linear-gradient(var(--grid-line) 1px,transparent 1px) 0 0/48px 48px,
+  linear-gradient(90deg,var(--grid-line) 1px,transparent 1px) 0 0/48px 48px,
+  radial-gradient(120% 80% at 15% 110%,color-mix(in srgb,var(--violet) 55%,transparent),transparent 60%),
+  var(--navy);
+  color:var(--on-navy);padding-block:clamp(40px,6vw,80px) clamp(40px,6vw,72px);position:relative;overflow:hidden}
+.hero-grid{display:grid;gap:clamp(36px,5vw,64px);align-items:center}
+@media (min-width:1000px){.hero-grid{grid-template-columns:1fr 1.05fr}}
+.hero .path code{background:rgba(255,255,255,.08);color:var(--violet-light)}
+.hero-title{font-size:clamp(2.7rem,6.6vw,5.8rem);font-weight:900;letter-spacing:-.035em;line-height:.98;margin-block-start:18px}
+.hero-title .hl{color:var(--violet-light)}
+.hero-title .w{display:inline-block;overflow:hidden;vertical-align:top;padding-block-end:.1em;margin-block-end:-.1em}
+.hero-title .w>span{display:inline-block}
+.js .hero-title .w>span{animation:rise .9s var(--ease-out) both;animation-delay:calc(var(--i) * 55ms + 120ms)}
+@keyframes rise{from{transform:translateY(105%)}}
+.hero-sub{margin-block-start:22px;font-size:clamp(1.15rem,1.5vw,1.3rem);color:var(--on-navy-muted);max-width:42ch}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:12px;margin-block-start:30px}
+.js .fade-in{animation:fadeUp .8s var(--ease-out) both;animation-delay:var(--d,.5s)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}}
+
+.picker{margin-block-start:14px}
+.picker-q{font-family:var(--font-display);font-weight:700;font-size:1rem;color:var(--on-navy);display:flex;align-items:center;gap:10px;margin-block-end:12px}
+.picker-q::before{content:"";inline-size:8px;block-size:8px;border-radius:50%;background:var(--violet-light);box-shadow:0 0 0 4px color-mix(in srgb,var(--violet-light) 25%,transparent)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:0;cursor:pointer;min-block-size:44px;padding-inline:16px;border-radius:99px;background:rgba(255,255,255,.07);color:var(--on-navy);font-weight:600;font-size:1rem;box-shadow:inset 0 0 0 1px rgba(255,255,255,.14);transition:background-color var(--dur-fast),color var(--dur-fast),transform var(--dur-fast) var(--ease-out)}
+.chip:hover{background:rgba(255,255,255,.13)}
+.chip:active{transform:scale(.96)}
+.chip[aria-pressed="true"]{background:var(--on-navy);color:var(--navy);box-shadow:none}
+.stage{position:relative;padding-block-end:10%;padding-inline-end:14%}
+.js .stage{animation:devIn 1.1s var(--ease-out) both;animation-delay:.3s}
+@keyframes devIn{from{opacity:0;transform:translateY(28px) scale(.97)}}
+.stage-caption{position:absolute;inset-block-start:-34px;inset-inline-start:0;font-family:var(--font-mono);font-size:.8rem;color:var(--on-navy-muted);direction:ltr;unicode-bidi:isolate}
+.laptop-screen{background:#05081A;border-radius:16px 16px 6px 6px;padding:9px;box-shadow:var(--shadow);position:relative}
+.laptop-screen::before{content:"";position:absolute;inset-block-start:3px;inset-inline:50%;inline-size:4px;block-size:4px;border-radius:50%;background:#2A2F4A}
+.laptop-base{block-size:13px;margin-inline:-5%;background:linear-gradient(#D2D5E2,#8F95AE);border-radius:0 0 14px 14px}
+.phone{position:absolute;inset-block-end:0;inset-inline-end:0;inline-size:27%;min-inline-size:104px;background:#05081A;border-radius:26px;padding:7px;box-shadow:var(--shadow)}
+.phone .mini{aspect-ratio:9/18.5;border-radius:20px}
+
+/* Mini website — text-bearing, themeable, container-scaled */
+.laptop-screen,.phone,.shot-frame,.browser{container-type:inline-size}
+.mini{--m-bg:#FBF6EF;--m-ink:#3B2A1E;--m-accent:#C9733A;--m-soft:#F1E3D3;--m-muted:#8B7765;--m-img:linear-gradient(135deg,#E7B98C,#9B5B32);
+  aspect-ratio:16/10;background:var(--m-bg);color:var(--m-ink);border-radius:8px;overflow:hidden;display:flex;flex-direction:column;padding:4.5cqi 5cqi;gap:4cqi;font-family:var(--font-display);max-width:100%;
+  transition:background-color .5s var(--ease-out),color .5s var(--ease-out)}
+.m-nav{display:flex;align-items:center;gap:3cqi;font-size:2.4cqi;white-space:nowrap}
+.m-name{font-weight:800;font-size:3.1cqi}
+.m-links{display:flex;gap:2.6cqi;margin-inline-start:auto;color:var(--m-muted);transition:color .5s}
+.m-pill{background:var(--m-accent);color:var(--m-bg);border-radius:99px;padding:.6cqi 2.2cqi;font-weight:700;transition:background-color .5s,color .5s}
+.m-hero{flex:1;display:grid;grid-template-columns:1.15fr 1fr;gap:4cqi;align-items:center;min-block-size:0}
+.m-copy{display:grid;gap:2cqi;align-content:center}
+.m-kicker{font-size:2.1cqi;color:var(--m-accent);font-weight:700;transition:color .5s}
+.m-title{font-size:5.6cqi;font-weight:900;line-height:1.02;letter-spacing:-.02em}
+.m-text{font-size:2.2cqi;color:var(--m-muted);font-family:var(--font-body);line-height:1.4;transition:color .5s}
+.m-cta{justify-self:start;background:var(--m-accent);color:var(--m-bg);border-radius:99px;padding:1.3cqi 3.4cqi;font-size:2.3cqi;font-weight:700;transition:background-color .5s,color .5s}
+.m-img{align-self:stretch;border-radius:2.4cqi;background:var(--m-img);position:relative;overflow:hidden;min-block-size:0}
+.m-img::after{content:"";position:absolute;inset:auto 12% 14% auto;inline-size:30%;aspect-ratio:1;border-radius:50%;background:rgba(255,255,255,.35)}
+.m-products{display:none;grid-template-columns:repeat(3,1fr);gap:2cqi;align-self:stretch}
+.m-products span{border-radius:2cqi;background:var(--m-soft);position:relative;transition:background-color .5s}
+.m-products span::before{content:"";position:absolute;inset:14% 18% 34%;border-radius:1.6cqi;background:var(--m-img)}
+.m-products span::after{content:"";position:absolute;inset:auto 18% 14% 18%;block-size:6%;border-radius:99px;background:var(--m-accent);opacity:.8}
+.mini[data-layout="store"] .m-img{display:none}
+.mini[data-layout="store"] .m-products{display:grid}
+.mini[data-layout="store"] .m-hero{grid-template-columns:1fr 1.4fr}
+.phone .mini{padding:7cqi 7cqi;gap:6cqi}
+.phone .m-nav{font-size:5cqi}.phone .m-name{font-size:6.5cqi}.phone .m-links{display:none}.phone .m-pill{margin-inline-start:auto;padding:1.2cqi 4cqi}
+.phone .m-hero{grid-template-columns:1fr;align-content:start}
+.phone .m-img{aspect-ratio:1/1;order:-1;border-radius:5cqi}
+.phone .m-title{font-size:11cqi}.phone .m-kicker{font-size:4.6cqi}.phone .m-text{font-size:4.6cqi}.phone .m-cta{font-size:4.8cqi;padding:2.4cqi 6cqi}
+.phone .mini[data-layout="store"] .m-products{grid-template-columns:1fr 1fr;order:-1;block-size:44cqi}
+.phone .mini[data-layout="store"] .m-products span:nth-child(3){display:none}
+.phone .mini[data-layout="store"] .m-hero{grid-template-columns:1fr}
+.swap{transition:opacity .18s ease}
+.swapping .swap{opacity:0}
+/* business themes */
+.biz-cafe{--m-bg:#FBF6EF;--m-ink:#3B2A1E;--m-accent:#C9733A;--m-soft:#F1E3D3;--m-muted:#8B7765;--m-img:linear-gradient(135deg,#E7B98C,#9B5B32)}
+.biz-clinic{--m-bg:#F1F7F8;--m-ink:#0F2E3A;--m-accent:#1E8C9E;--m-soft:#D7EBEE;--m-muted:#5D7C86;--m-img:linear-gradient(135deg,#9ED9E2,#1E6F80)}
+.biz-boutique{--m-bg:#111318;--m-ink:#F2F0EA;--m-accent:#E9C46A;--m-soft:#22262F;--m-muted:#A09C92;--m-img:linear-gradient(135deg,#E9C46A,#8A5A1C)}
+.biz-law{--m-bg:#F6F4EF;--m-ink:#1C1F2B;--m-accent:#8C6B3F;--m-soft:#E9E3D6;--m-muted:#6E6A60;--m-img:linear-gradient(135deg,#C9B38D,#4A3B27)}
+.biz-fitness{--m-bg:#F2F7EC;--m-ink:#18260F;--m-accent:#4E9A1F;--m-soft:#DDEBCF;--m-muted:#62744F;--m-img:linear-gradient(135deg,#B8E08F,#3E7A16)}
+
+/* ============ SERVICES: live bento ============ */
+.bento{display:grid;gap:16px}
+@media (min-width:900px){.bento{grid-template-columns:repeat(6,1fr);grid-auto-rows:minmax(260px,auto)}
+  .tile-landing{grid-column:span 4}.tile-brand{grid-column:span 2;grid-row:span 2}.tile-store{grid-column:span 4}}
+.tile{position:relative;border-radius:var(--radius);background:var(--surface);padding:clamp(22px,3vw,34px);display:grid;gap:22px;overflow:hidden}
+@media (min-width:640px){.tile-landing,.tile-store{grid-template-columns:1fr 1.1fr;align-items:center}}
+.tile h3{font-size:clamp(1.5rem,2.4vw,2rem);font-weight:800}
+.tile p{color:var(--muted);margin-block-start:10px;max-width:34ch}
+.tile .kicker{font-family:var(--font-mono);font-size:.8rem;color:var(--violet-text);margin-block-end:10px;display:block}
+.tile-brand{background:var(--violet);color:var(--violet-ink);align-content:space-between}
+.tile-brand p{color:color-mix(in srgb,var(--violet-ink) 80%,transparent)}
+.tile-brand .kicker{color:color-mix(in srgb,var(--violet-ink) 75%,transparent)}
+/* landing demo */
+.demo-landing{position:relative;background:var(--paper);border-radius:16px;padding:18px;box-shadow:0 14px 40px -24px rgba(14,20,51,.4);display:grid;gap:10px}
+.demo-landing .ln-title{font-family:var(--font-display);font-weight:800;font-size:1.1rem}
+.demo-landing .ln-field{block-size:34px;border-radius:9px;border:1.5px solid var(--line);display:flex;align-items:center;padding-inline:10px;font-size:.85rem;color:var(--muted)}
+.demo-landing .ln-btn{block-size:36px;border-radius:99px;background:var(--violet);color:var(--violet-ink);display:grid;place-items:center;font-weight:700;font-size:.85rem}
+.toast{position:absolute;inset-block-start:-14px;inset-inline-end:-10px;background:var(--ink);color:var(--paper);border-radius:14px;padding:10px 14px;display:flex;gap:10px;align-items:center;font-size:.85rem;font-weight:600;box-shadow:0 14px 30px -12px rgba(14,20,51,.5)}
+.toast i{inline-size:24px;block-size:24px;border-radius:50%;background:var(--ok);display:grid;place-items:center;font-style:normal;color:#fff;font-size:.8rem}
+.js .toast{animation:toast 4.5s var(--ease-out) infinite}
+@keyframes toast{0%,12%{opacity:0;transform:translateY(10px) scale(.95)}20%,78%{opacity:1;transform:none}90%,100%{opacity:0;transform:translateY(-6px)}}
+/* brand demo: phone that scrolls itself */
+.demo-phone{justify-self:center;inline-size:min(210px,70%);aspect-ratio:9/18;background:#05081A;border-radius:28px;padding:7px;box-shadow:0 20px 40px -18px rgba(0,0,0,.5)}
+.demo-phone-screen{block-size:100%;border-radius:22px;overflow:hidden;background:#F1F7F8;position:relative}
+.scroller{display:grid;gap:10px;padding:12px}
+.js .scroller{animation:scrollPage 9s ease-in-out infinite alternate}
+@keyframes scrollPage{0%,10%{transform:translateY(0)}90%,100%{transform:translateY(-52%)}}
+.scroller b{display:block;border-radius:12px;background:#D7EBEE}
+.scroller .s-hero{block-size:120px;background:linear-gradient(135deg,#9ED9E2,#1E6F80)}
+.scroller .s-t{block-size:14px;inline-size:80%;background:#0F2E3A;border-radius:5px}
+.scroller .s-p{block-size:8px;inline-size:95%;border-radius:4px}
+.scroller .s-card{block-size:70px}
+.scroller .s-btn{block-size:24px;inline-size:55%;background:#1E8C9E;border-radius:99px}
+/* store demo: real add-to-cart */
+.demo-store{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:start}
+.prod{background:var(--paper);border-radius:16px;padding:14px;display:grid;gap:10px;box-shadow:0 14px 40px -24px rgba(14,20,51,.4)}
+.prod-img{aspect-ratio:4/3;border-radius:12px;background:radial-gradient(circle at 50% 60%,#F4D9A6 0 26%,transparent 27%),linear-gradient(135deg,#2B2F3A,#111318)}
+.prod-row{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-weight:700}
+.prod-row small{color:var(--muted);font-weight:600}
+.prod .btn{min-block-size:42px;font-size:.92rem}
+.mini-cart{position:relative;inline-size:52px;block-size:52px;border-radius:50%;background:var(--ink);color:var(--paper);display:grid;place-items:center}
+.mini-cart svg{inline-size:24px;block-size:24px}
+.mini-cart .badge{position:absolute;inset-block-start:-4px;inset-inline-end:-4px;min-inline-size:22px;block-size:22px;border-radius:99px;background:var(--violet);color:var(--violet-ink);font-size:.78rem;font-weight:800;display:grid;place-items:center;padding-inline:5px}
+
+/* ============ WHY: marquee band ============ */
+.band{background:var(--navy);color:var(--on-navy);border-radius:clamp(24px,3vw,40px);margin-inline:clamp(8px,1.4vw,20px);overflow:hidden}
+.band .path code{background:rgba(255,255,255,.08);color:var(--violet-light)}
+.band .path span{color:var(--on-navy-muted)}
+.marquee{overflow:hidden;padding-block:clamp(20px,3vw,36px);border-block:1px solid rgba(255,255,255,.1);margin-block:clamp(28px,4vw,48px)}
+.marquee-track{display:flex;gap:clamp(28px,4vw,56px);inline-size:max-content;align-items:center}
+.js .marquee-track{animation:marq 28s linear infinite}
+.marquee:hover .marquee-track{animation-play-state:paused}
+@keyframes marq{to{transform:translateX(calc(50% * var(--dir) * -1))}}
+.marquee-track span{font-family:var(--font-display);font-weight:900;font-size:clamp(2.6rem,7vw,6rem);line-height:1;white-space:nowrap;letter-spacing:-.03em}
+.marquee-track .o{color:transparent;-webkit-text-stroke:1.5px var(--on-navy-muted)}
+.marquee-track .f{color:var(--violet-light)}
+.marquee-track .dot{inline-size:14px;block-size:14px;border-radius:50%;background:var(--violet-light);flex:none}
+.why{display:grid;gap:28px}
+@media (min-width:760px){.why{grid-template-columns:repeat(4,1fr)}}
+.why-item h3{font-size:1.3rem;font-weight:700;margin-block:14px 6px}
+.why-item p{color:var(--on-navy-muted)}
+.why-item svg{inline-size:30px;block-size:30px;color:var(--violet-light)}
+
+/* ============ WORK: tilted browser rail ============ */
+.work-top{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap}
+.rail-ctrl{display:flex;gap:8px}
+.rail-ctrl button{inline-size:48px;block-size:48px;border-radius:50%;border:0;background:var(--surface);cursor:pointer;display:grid;place-items:center;transition:background-color var(--dur-fast)}
+.rail-ctrl button:hover{background:var(--violet-soft)}
+.rail-ctrl svg{inline-size:22px;block-size:22px}
+.work-note{color:var(--muted);font-size:1rem;margin-block-start:10px}
+.rail{display:grid;grid-auto-flow:column;grid-auto-columns:min(82%,440px);gap:28px;overflow-x:auto;scroll-snap-type:x mandatory;padding-block:36px 24px;padding-inline:4px;scrollbar-width:none}
+.rail::-webkit-scrollbar{display:none}
+.shot{scroll-snap-align:start;display:grid;gap:14px}
+.shot-frame{background:var(--paper);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow);transform:rotate(var(--tilt,-2deg));transition:transform var(--dur-base) var(--ease-out)}
+.shot:nth-child(even) .shot-frame{--tilt:2deg}
+@media (hover:hover) and (pointer:fine){.shot:hover .shot-frame{transform:rotate(0) translateY(-6px)}}
+.shot-bar{display:flex;align-items:center;gap:8px;padding:9px 12px;background:var(--surface);border-block-end:1px solid var(--line)}
+.shot-bar i{inline-size:8px;block-size:8px;border-radius:50%;background:var(--line)}
+.shot-bar em{font-style:normal;font-family:var(--font-mono);font-size:.72rem;color:var(--muted);margin-inline-start:auto;direction:ltr;unicode-bidi:isolate}
+.shot .mini{border-radius:0}
+.shot-meta{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;padding-inline:4px}
+.shot-meta h3{font-size:1.2rem;font-weight:700}
+.shot-meta small{color:var(--muted);font-size:.95rem}
+.demo-badge{font-size:.78rem;font-weight:700;padding:3px 10px;border-radius:99px;background:var(--violet-soft);color:var(--violet-text)}
+
+/* ============ PROCESS: site builds itself ============ */
+.process-sec{background:var(--surface)}
+.process{display:grid;gap:40px}
+@media (min-width:900px){.process{grid-template-columns:1fr 1.15fr;gap:64px;align-items:start}}
+.steps{list-style:none;margin:0;padding:0;display:grid}
+.step{display:grid;grid-template-columns:auto 1fr;gap:18px;padding-block:28px;border-block-end:1px solid var(--line)}
+.step-num{font-family:var(--font-mono);font-size:.9rem;inline-size:42px;block-size:42px;border-radius:50%;display:grid;place-items:center;border:1.5px solid var(--line);color:var(--muted);background:var(--paper);transition:background-color var(--dur-base),color var(--dur-base),border-color var(--dur-base)}
+.step h3{font-size:1.45rem;font-weight:800;margin-block-end:6px}
+.step p{color:var(--muted)}
+.step-mini{grid-column:1/-1;margin-block-start:10px}
+@media (min-width:900px){
+  .step{min-block-size:50vh;align-content:center;border:0;padding-block:0}
+  .step-body{opacity:.3;transition:opacity var(--dur-base) var(--ease-out)}
+  .step.is-active .step-body,.no-js-step .step-body{opacity:1}
+  .step.is-active .step-num{background:var(--violet);border-color:var(--violet);color:var(--violet-ink)}
+  .step-mini{display:none}
+}
+.build-wrap{display:none}
+@media (min-width:900px){.build-wrap{display:block;position:sticky;top:calc(var(--header-h) + 48px);order:2}}
+.browser{background:var(--paper);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);overflow:hidden}
+.chrome{display:flex;align-items:center;gap:12px;padding:11px 14px;border-block-end:1px solid var(--line);background:var(--surface)}
+.dots{display:flex;gap:6px}.dots i{inline-size:10px;block-size:10px;border-radius:50%;background:var(--line)}
+.url{flex:1;display:flex;align-items:center;gap:8px;min-inline-size:0;background:var(--paper);border:1px solid var(--line);border-radius:99px;padding:5px 12px;font-family:var(--font-mono);font-size:.78rem;color:var(--muted);direction:ltr;overflow:hidden;white-space:nowrap}
+.url .lock{inline-size:12px;block-size:12px;flex:none}
+.live{display:inline-flex;align-items:center;gap:6px;font-size:.8rem;font-weight:700;color:var(--muted);white-space:nowrap}
+.live i{inline-size:8px;block-size:8px;border-radius:50%;background:var(--line)}
+.browser .mini{border-radius:0;aspect-ratio:16/10.5}
+.stage-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:12px 14px}
+.stage-bar span{block-size:4px;border-radius:4px;background:var(--line);transition:background-color var(--dur-base)}
+.build .mini *{transition:background-color .6s var(--ease-out),color .6s var(--ease-out),opacity .6s,outline-color .6s}
+.build[data-state="0"] .mini{--m-bg:var(--paper);--m-ink:transparent;--m-accent:transparent;--m-muted:transparent;--m-img:transparent;--m-soft:transparent;background:repeating-linear-gradient(0deg,transparent 0 23px,color-mix(in srgb,var(--line) 70%,transparent) 23px 24px),var(--paper)}
+.build[data-state="0"] .m-name,.build[data-state="0"] .m-links span,.build[data-state="0"] .m-pill,.build[data-state="0"] .m-kicker,.build[data-state="0"] .m-title,.build[data-state="0"] .m-text,.build[data-state="0"] .m-cta,.build[data-state="0"] .m-img{outline:1.5px dashed color-mix(in srgb,var(--muted) 55%,transparent);outline-offset:-1px;border-radius:4px}
+.build[data-state="0"] .m-img{background:linear-gradient(to top left,transparent calc(50% - 1px),color-mix(in srgb,var(--muted) 45%,transparent) 50%,transparent calc(50% + 1px)),linear-gradient(to top right,transparent calc(50% - 1px),color-mix(in srgb,var(--muted) 45%,transparent) 50%,transparent calc(50% + 1px))}
+.build[data-state="0"] .m-img::after{display:none}
+.build[data-state="1"] .mini{--m-ink:#CDD0DF;--m-muted:#DADCE8}
+.build[data-state="1"] .m-title,.build[data-state="1"] .m-text,.build[data-state="1"] .m-name,.build[data-state="1"] .m-links{background:currentColor;border-radius:4px}
+.build[data-state="0"] .url-text::after{content:"sketch / wireframe"}
+.build[data-state="1"] .url-text::after{content:"design.draft"}
+.build[data-state="2"] .url-text::after{content:"staging.your-business.co.il"}
+.build[data-state="3"] .url-text::after{content:"your-business.co.il"}
+.build[data-state="3"] .live{color:var(--ok)}
+.build[data-state="3"] .live i{background:var(--ok);animation:pulse 1.8s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--ok) 60%,transparent)}70%{box-shadow:0 0 0 8px transparent}100%{box-shadow:0 0 0 0 transparent}}
+.build[data-state="0"] .stage-bar span:nth-child(-n+1),.build[data-state="1"] .stage-bar span:nth-child(-n+2),.build[data-state="2"] .stage-bar span:nth-child(-n+3),.build[data-state="3"] .stage-bar span{background:var(--violet)}
+.step-mini .browser{box-shadow:none}
+.step-mini .stage-bar{display:none}
+
+/* ============ FAQ split ============ */
+.faq-grid{display:grid;gap:36px}
+@media (min-width:900px){.faq-grid{grid-template-columns:.8fr 1.2fr;gap:64px}.faq-side{position:sticky;top:calc(var(--header-h) + 40px);align-self:start}}
+.faq-side p{color:var(--muted);margin-block-start:14px}
+.faq details{border-block-end:1px solid var(--line)}
+.faq details:first-of-type{border-block-start:1px solid var(--line)}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;min-block-size:44px;padding-block:24px;font-family:var(--font-display);font-weight:700;font-size:1.3rem}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";flex:none;inline-size:38px;block-size:38px;border-radius:50%;display:grid;place-items:center;background:var(--surface);font-size:1.4rem;line-height:1;transition:transform var(--dur-fast) var(--ease-out),background-color var(--dur-fast)}
+.faq details[open] summary::after{transform:rotate(45deg);background:var(--violet);color:var(--violet-ink)}
+.faq-a{padding-block-end:26px;color:var(--muted);max-width:62ch}
+:root{interpolate-size:allow-keywords}
+.faq details::details-content{block-size:0;overflow:clip;transition:block-size var(--dur-base) var(--ease-out),content-visibility var(--dur-base) allow-discrete}
+.faq details[open]::details-content{block-size:auto}
+
+/* ============ CONTACT: chat-style form ============ */
+.contact{display:grid;gap:40px}
+@media (min-width:900px){.contact{grid-template-columns:.9fr 1.1fr;gap:64px;align-items:center}}
+.contact h2{font-size:clamp(2.3rem,5vw,4.2rem);font-weight:900;letter-spacing:-.03em;margin-block-start:16px}
+.contact-side p{color:var(--muted);margin-block-start:16px;font-size:1.2rem;max-width:40ch}
+.chat{background:var(--surface);border-radius:28px;padding:clamp(18px,3vw,30px);display:grid;gap:14px;box-shadow:inset 0 0 0 1px var(--line)}
+.chat-head{display:flex;align-items:center;gap:12px;padding-block-end:14px;border-block-end:1px solid var(--line)}
+.chat-head .logo-mark{inline-size:40px;block-size:40px;border-radius:50%}
+.chat-head b{display:block;font-family:var(--font-display)}
+.chat-head small{color:var(--ok);font-weight:700;font-size:.85rem}
+.q{justify-self:start;max-inline-size:85%;background:var(--paper);border-radius:18px;border-start-start-radius:6px;padding:10px 16px;font-weight:600;box-shadow:0 2px 0 var(--line)}
+.q .opt{font-weight:400;color:var(--muted)}
+.a{justify-self:end;inline-size:min(100%,360px);display:grid;gap:4px}
+.a input,.a select{font:inherit;font-size:1.05rem;inline-size:100%;min-block-size:52px;border-radius:18px;border-start-end-radius:6px;border:1.5px solid color-mix(in srgb,var(--violet) 40%,var(--line));background:var(--violet-soft);color:var(--ink);padding-inline:16px;transition:border-color var(--dur-fast),background-color var(--dur-fast)}
+.a input:focus,.a select:focus{outline:none;border-color:var(--violet);background:var(--paper);box-shadow:0 0 0 4px var(--violet-soft)}
+.a input[aria-invalid="true"]{border-color:#D23C4E}
+.a input[type="tel"],.a input[type="email"]{direction:ltr;text-align:right}
+.a .err{color:#C0283B;font-size:.9rem;font-weight:600}
+.chat .btn{justify-self:end;margin-block-start:6px}
+.demo-note{font-size:.85rem;color:var(--muted)}
+.bubble-status{justify-self:start;max-inline-size:90%;border-radius:18px;border-start-start-radius:6px;padding:14px 18px;display:grid;gap:10px}
+.bubble-status.ok{background:color-mix(in srgb,var(--ok) 16%,var(--paper))}
+.bubble-status.fail{background:color-mix(in srgb,#D23C4E 13%,var(--paper))}
+.bubble-status .actions{display:flex;flex-wrap:wrap;gap:8px}
+.js .bubble-status:not([hidden]){animation:fadeUp .5s var(--ease-out) both}
+
+/* Footer */
+.site-footer{background:var(--navy);color:var(--on-navy);padding-block:56px 40px;margin-block-start:clamp(56px,8vw,96px)}
+.footer-grid{display:grid;gap:32px}
+@media (min-width:760px){.footer-grid{grid-template-columns:1.3fr 1fr 1fr}}
+.site-footer .logo-mark{background:var(--on-navy);color:#0E1433}
+.site-footer .logo-mark b{color:#6246EA}
+.site-footer h4{font-family:var(--font-display);font-size:1rem;margin:0 0 12px;color:var(--on-navy-muted);font-weight:500}
+.site-footer ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.site-footer a{text-decoration:none}
+.site-footer a:hover{text-decoration:underline}
+.footer-bottom{margin-block-start:40px;padding-block-start:20px;border-block-start:1px solid rgba(255,255,255,.14);display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;color:var(--on-navy-muted);font-size:.95rem}
+.site-footer .todo{background:#3A300E;color:#FFE08A}
+
+.flyer{position:fixed;z-index:90;pointer-events:none;border-radius:12px}
+
+@media (prefers-reduced-motion: reduce){
+  .js .hero-title .w>span,.js .fade-in,.js .stage,.js .toast,.js .scroller,.js .marquee-track,.build[data-state="3"] .live i{animation:none}
+  .marquee-track{flex-wrap:wrap;inline-size:auto}
+  .marquee-track [aria-hidden]{display:none}
+}
+</style>
+
+<div class="page" dir="rtl" lang="he">
+<a class="skip" href="#main">דילוג לתוכן</a>
+
+<header class="site-header">
+  <div class="wrap header-row">
+    <a href="#top" class="logo" aria-label="עידן שטיינברג, לראש הדף"><span class="logo-mark" aria-hidden="true">&lt;<b>/</b>&gt;</span><span class="logo-text">עידן שטיינברג</span></a>
+    <nav id="site-nav" class="site-nav" data-open="false" aria-label="ראשי">
+      <ul>
+        <li><a href="#services">שירותים</a></li>
+        <li><a href="#work">עבודות</a></li>
+        <li><a href="#process">תהליך</a></li>
+        <li><a href="#contact">יצירת קשר</a></li>
+      </ul>
+    </nav>
+    <div class="header-actions">
+      <a class="btn btn-sm" href="#contact">בואו נדבר</a>
+      <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav" data-label-open="פתיחת תפריט" data-label-close="סגירת תפריט" aria-label="פתיחת תפריט">
+        <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path class="l1" d="M4 7h16"/><path class="l2" d="M4 12h16"/><path class="l3" d="M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <!-- HERO -->
+  <section class="hero" id="top">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="path"><code>/home</code></p>
+        <h1 class="hero-title" data-split>העסק שלכם ראוי <span class="hl">לאתר שעובד</span> בשבילכם</h1>
+        <p class="hero-sub fade-in" style="--d:.55s">בניית אתרים מעוצבים, מהירים ומותאמים לנייד, כדי להציג את העסק ולהפוך מתעניינים לפניות.</p>
+        <div class="hero-ctas fade-in" style="--d:.7s">
+          <a class="btn" href="#contact">לקבלת הצעת מחיר
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></a>
+          <a class="btn btn-ghost" href="https://wa.me/972500000000" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l2.1-5.5A8.4 8.4 0 1 1 21 11.5z"/></svg>
+            לשיחה בוואטסאפ</a>
+        </div>
+      </div>
+
+      <div>
+        <div class="picker fade-in" style="--d:.9s" role="group" aria-labelledby="picker-q">
+          <p class="picker-q" id="picker-q">איזה עסק יש לכם? תראו איך האתר שלכם יכול להיראות</p>
+          <div class="chips">
+            <button class="chip" type="button" data-biz="cafe" aria-pressed="true">בית קפה</button>
+            <button class="chip" type="button" data-biz="clinic" aria-pressed="false">קליניקה</button>
+            <button class="chip" type="button" data-biz="boutique" aria-pressed="false">בוטיק אופנה</button>
+            <button class="chip" type="button" data-biz="law" aria-pressed="false">משרד עורכי דין</button>
+            <button class="chip" type="button" data-biz="fitness" aria-pressed="false">סטודיו כושר</button>
+          </div>
+        </div>
+        <div class="stage" id="stage" aria-hidden="true" style="margin-block-start:52px">
+          <span class="stage-caption" id="stage-url">shaked-cafe.co.il</span>
+          <div class="laptop">
+            <div class="laptop-screen">
+              <div class="mini biz-cafe" data-preview>
+                <div class="m-nav"><span class="m-name swap" data-f="name">קפה שקד</span><span class="m-links swap"><span>תפריט</span><span>אודות</span><span>צרו קשר</span></span><span class="m-pill swap" data-f="pill">הזמנה</span></div>
+                <div class="m-hero">
+                  <div class="m-copy">
+                    <span class="m-kicker swap" data-f="kicker">פתוח כל יום מ-7:00</span>
+                    <span class="m-title swap" data-f="title">הקפה הכי טוב בשכונה</span>
+                    <span class="m-text swap" data-f="text">קלייה מקומית, מאפים של הבוקר ומקום לשבת.</span>
+                    <span class="m-cta swap" data-f="cta">להזמנת שולחן</span>
+                  </div>
+                  <div class="m-img"></div>
+                  <div class="m-products"><span></span><span></span><span></span></div>
+                </div>
+              </div>
+            </div>
+            <div class="laptop-base"></div>
+          </div>
+          <div class="phone">
+            <div class="mini biz-cafe" data-preview>
+              <div class="m-nav"><span class="m-name swap" data-f="name">קפה שקד</span><span class="m-pill swap" data-f="pill">הזמנה</span></div>
+              <div class="m-hero">
+                <div class="m-img"></div>
+                <div class="m-products"><span></span><span></span><span></span></div>
+                <div class="m-copy">
+                  <span class="m-title swap" data-f="title">הקפה הכי טוב בשכונה</span>
+                  <span class="m-text swap" data-f="text">קלייה מקומית, מאפים של הבוקר ומקום לשבת.</span>
+                  <span class="m-cta swap" data-f="cta">להזמנת שולחן</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="section" id="services">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="path"><code>/services</code><span>השירותים שלנו</span></p>
+        <h2>שלושה סוגי אתרים, כל אחד עם תפקיד ברור</h2>
+      </div>
+      <div class="bento">
+        <article class="tile tile-landing">
+          <div>
+            <span class="kicker">landing-page</span>
+            <h3>דפי נחיתה</h3>
+            <p>עמוד אחד עם מטרה אחת: להפוך גולשים שמגיעים מקמפיין לפניות אמיתיות.</p>
+          </div>
+          <div class="demo-landing" aria-hidden="true">
+            <div class="toast"><i>✓</i>פנייה חדשה התקבלה</div>
+            <span class="ln-title">שיעור ניסיון ראשון עלינו</span>
+            <span class="ln-field">שם מלא</span>
+            <span class="ln-field">טלפון</span>
+            <span class="ln-btn">שלחו לי פרטים</span>
+          </div>
+        </article>
+        <article class="tile tile-brand">
+          <div>
+            <span class="kicker">business-site</span>
+            <h3>אתרי תדמית</h3>
+            <p>אתר שמציג את העסק, השירותים והסיפור שלכם, ועוזר ללקוחות להבין למה לבחור בכם.</p>
+          </div>
+          <div class="demo-phone" aria-hidden="true"><div class="demo-phone-screen"><div class="scroller">
+            <b class="s-hero"></b><b class="s-t"></b><b class="s-p"></b><b class="s-p" style="inline-size:70%"></b><b class="s-btn"></b>
+            <b class="s-card"></b><b class="s-card"></b><b class="s-t" style="inline-size:60%"></b><b class="s-p"></b><b class="s-p"></b><b class="s-card"></b><b class="s-card"></b><b class="s-btn"></b>
+          </div></div></div>
+        </article>
+        <article class="tile tile-store">
+          <div>
+            <span class="kicker">online-store</span>
+            <h3>חנויות אינטרנטיות</h3>
+            <p>חנות שנוח לנהל ונעים לקנות בה, מהמחשב ומהנייד. נסו להוסיף לסל.</p>
+          </div>
+          <div class="demo-store">
+            <div class="prod">
+              <div class="prod-img" id="prod-img" role="img" aria-label="ספל קרמיקה, מוצר לדוגמה"></div>
+              <div class="prod-row"><span>ספל קרמיקה</span><small>₪89</small></div>
+              <button class="btn" type="button" id="add-cart">הוספה לסל</button>
+            </div>
+            <div class="mini-cart" id="mini-cart" aria-live="polite">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 7h14l-1.5 9a2 2 0 0 1-2 1.7H8.5a2 2 0 0 1-2-1.7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>
+              <span class="badge" id="cart-count"><span class="sr" style="position:absolute;clip:rect(0 0 0 0);width:1px;height:1px;overflow:hidden">פריטים בסל: </span><span id="cart-n">0</span></span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY -->
+  <section class="section band" aria-labelledby="why-title">
+    <div class="wrap">
+      <div class="section-head" style="margin-block-end:0">
+        <p class="path"><code>/why-us</code><span>למה לבחור בנו</span></p>
+        <h2 id="why-title">מה מקבלים כשעובדים איתנו</h2>
+      </div>
+    </div>
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span class="f">עיצוב אישי</span><i class="dot"></i><span class="o">כל המסכים</span><i class="dot"></i><span class="f">ניהול נוח</span><i class="dot"></i><span class="o">ליווי צמוד</span><i class="dot"></i>
+        <span class="f" aria-hidden="true">עיצוב אישי</span><i class="dot" aria-hidden="true"></i><span class="o" aria-hidden="true">כל המסכים</span><i class="dot" aria-hidden="true"></i><span class="f" aria-hidden="true">ניהול נוח</span><i class="dot" aria-hidden="true"></i><span class="o" aria-hidden="true">ליווי צמוד</span><i class="dot" aria-hidden="true"></i>
+      </div>
+    </div>
+    <div class="wrap">
+      <div class="why">
+        <div class="why-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20l-7-7a4.5 4.5 0 0 1 7-5.6A4.5 4.5 0 0 1 19 13z"/></svg>
+          <h3>עיצוב אישי</h3><p>עיצוב שנבנה סביב העסק, הקהל והמטרות שלכם.</p>
+        </div>
+        <div class="why-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="14" height="11" rx="2"/><rect x="17" y="9" width="5" height="11" rx="1.5"/><path d="M6 19h6"/></svg>
+          <h3>התאמה לכל המסכים</h3><p>האתר נראה ועובד טוב במחשב, בטאבלט ובנייד.</p>
+        </div>
+        <div class="why-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></svg>
+          <h3>מערכת ניהול נוחה</h3><p>מעדכנים טקסטים, תמונות ומוצרים לבד, בלי לחכות לאף אחד.</p>
+        </div>
+        <div class="why-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/><path d="M8.5 11h.01M12 11h.01M15.5 11h.01"/></svg>
+          <h3>ליווי לאורך התהליך</h3><p>מהשיחה הראשונה ועד שהאתר באוויר, יש עם מי לדבר.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORK -->
+  <section class="section" id="work">
+    <div class="wrap">
+      <div class="work-top">
+        <div class="section-head" style="margin-block-end:0">
+          <p class="path"><code>/work</code><span>עבודות</span></p>
+          <h2>עבודות לדוגמה</h2>
+          <p class="work-note">הפרויקטים כאן הם עבודות הדגמה. <span class="todo">להחליף בפרויקטים אמיתיים: צילום מסך, שם העסק וקישור</span></p>
+        </div>
+        <div class="rail-ctrl">
+          <button type="button" id="rail-prev" aria-label="לעבודה הקודמת"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+          <button type="button" id="rail-next" aria-label="לעבודה הבאה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
+        </div>
+      </div>
+      <div class="rail" id="rail" tabindex="0" aria-label="עבודות לדוגמה, גלילה אופקית">
+        <article class="shot">
+          <div class="shot-frame"><div class="shot-bar"><i></i><i></i><i></i><em>shaked-cafe.co.il</em></div>
+            <div class="mini biz-cafe" aria-hidden="true"><div class="m-nav"><span class="m-name">קפה שקד</span><span class="m-links"><span>תפריט</span><span>אודות</span></span><span class="m-pill">הזמנה</span></div><div class="m-hero"><div class="m-copy"><span class="m-kicker">פתוח כל יום</span><span class="m-title">הקפה הכי טוב בשכונה</span><span class="m-cta">להזמנת שולחן</span></div><div class="m-img"></div></div></div></div>
+          <div class="shot-meta"><h3>בית קפה שכונתי</h3><small>אתר תדמית</small><span class="demo-badge">עבודת הדגמה</span></div>
+        </article>
+        <article class="shot">
+          <div class="shot-frame"><div class="shot-bar"><i></i><i></i><i></i><em>tnua-studio.co.il</em></div>
+            <div class="mini biz-fitness" aria-hidden="true"><div class="m-nav"><span class="m-name">סטודיו תנועה</span><span class="m-links"><span>שיעורים</span><span>מחירון</span></span><span class="m-pill">הרשמה</span></div><div class="m-hero"><div class="m-copy"><span class="m-kicker">שיעור ראשון חינם</span><span class="m-title">אימונים שמתאימים לכם</span><span class="m-cta">לשיעור ניסיון</span></div><div class="m-img"></div></div></div></div>
+          <div class="shot-meta"><h3>סטודיו לפילאטיס</h3><small>דף נחיתה</small><span class="demo-badge">עבודת הדגמה</span></div>
+        </article>
+        <article class="shot">
+          <div class="shot-frame"><div class="shot-bar"><i></i><i></i><i></i><em>lia-boutique.co.il</em></div>
+            <div class="mini biz-boutique" data-layout="store" aria-hidden="true"><div class="m-nav"><span class="m-name">בוטיק ליה</span><span class="m-links"><span>חדש</span><span>שמלות</span></span><span class="m-pill">סל (2)</span></div><div class="m-hero"><div class="m-copy"><span class="m-kicker">קולקציית סתיו</span><span class="m-title">הקולקציה החדשה כאן</span><span class="m-cta">לחנות</span></div><div class="m-img"></div><div class="m-products"><span></span><span></span><span></span></div></div></div></div>
+          <div class="shot-meta"><h3>בוטיק אופנה</h3><small>חנות אינטרנטית</small><span class="demo-badge">עבודת הדגמה</span></div>
+        </article>
+        <article class="shot">
+          <div class="shot-frame"><div class="shot-bar"><i></i><i></i><i></i><em>marom-clinic.co.il</em></div>
+            <div class="mini biz-clinic" aria-hidden="true"><div class="m-nav"><span class="m-name">קליניקת מרום</span><span class="m-links"><span>טיפולים</span><span>צוות</span></span><span class="m-pill">תור</span></div><div class="m-hero"><div class="m-copy"><span class="m-kicker">פיזיותרפיה ושיקום</span><span class="m-title">טיפול מקצועי, קרוב לבית</span><span class="m-cta">לקביעת תור</span></div><div class="m-img"></div></div></div></div>
+          <div class="shot-meta"><h3>קליניקה לפיזיותרפיה</h3><small>אתר תדמית</small><span class="demo-badge">עבודת הדגמה</span></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="section process-sec" id="process">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="path"><code>/process</code><span>איך התהליך עובד</span></p>
+        <h2>מהשיחה הראשונה ועד אתר באוויר</h2>
+        <p>ארבעה שלבים, ובכל אחד מהם יודעים בדיוק איפה הפרויקט עומד.</p>
+      </div>
+      <div class="process">
+        <div class="build-wrap" aria-hidden="true">
+          <div class="build" data-state="3" id="build">
+            <div class="browser">
+              <div class="chrome">
+                <div class="dots"><i></i><i></i><i></i></div>
+                <div class="url"><svg class="lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><span class="url-text"></span></div>
+                <span class="live"><i></i>באוויר</span>
+              </div>
+              <div class="mini biz-cafe">
+                <div class="m-nav"><span class="m-name">העסק שלכם</span><span class="m-links"><span>שירותים</span><span>אודות</span><span>צרו קשר</span></span><span class="m-pill">בואו נדבר</span></div>
+                <div class="m-hero">
+                  <div class="m-copy"><span class="m-kicker">ברוכים הבאים</span><span class="m-title">האתר החדש של העסק שלכם</span><span class="m-text">כאן הלקוחות מבינים מה אתם עושים ופונים אליכם.</span><span class="m-cta">לפרטים</span></div>
+                  <div class="m-img"></div>
+                </div>
+              </div>
+              <div class="stage-bar"><span></span><span></span><span></span><span></span></div>
+            </div>
+          </div>
+        </div>
+        <ol class="steps no-js-step" id="steps">
+          <li class="step" data-step="0"><span class="step-num">01</span>
+            <div class="step-body"><h3>שיחת היכרות ואפיון</h3><p>מבינים את העסק, הקהל והמטרה, ומגדירים יחד מה האתר צריך לעשות.</p></div>
+            <div class="step-mini" aria-hidden="true"></div></li>
+          <li class="step" data-step="1"><span class="step-num">02</span>
+            <div class="step-body"><h3>עיצוב</h3><p>מעצבים את המראה ואת מבנה העמודים, ומלטשים לפי ההערות שלכם.</p></div>
+            <div class="step-mini" aria-hidden="true"></div></li>
+          <li class="step" data-step="2"><span class="step-num">03</span>
+            <div class="step-body"><h3>פיתוח והזנת תוכן</h3><p>בונים את האתר, מזינים את התוכן ומחברים את הטפסים ואת הוואטסאפ.</p></div>
+            <div class="step-mini" aria-hidden="true"></div></li>
+          <li class="step" data-step="3"><span class="step-num">04</span>
+            <div class="step-body"><h3>בדיקות ועלייה לאוויר</h3><p>בודקים את האתר במחשב, בטאבלט ובנייד, ומעלים אותו לאוויר.</p></div>
+            <div class="step-mini" aria-hidden="true"></div></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials: not shown until there are real ones (per spec) -->
+
+  <!-- FAQ -->
+  <section class="section" id="faq" aria-labelledby="faq-title">
+    <div class="wrap faq-grid">
+      <div class="faq-side">
+        <p class="path"><code>/faq</code><span>שאלות נפוצות</span></p>
+        <h2 id="faq-title" style="font-size:clamp(2.1rem,4.4vw,3.4rem);font-weight:800;margin-block-start:16px">מה חשוב לדעת לפני שמתחילים</h2>
+        <p>לא מצאתם תשובה? <a href="https://wa.me/972500000000" target="_blank" rel="noopener">כתבו לנו בוואטסאפ</a>.</p>
+      </div>
+      <div class="faq">
+        <details name="faq">
+          <summary>כמה זמן לוקח לבנות אתר?</summary>
+          <div class="faq-a"><p>זה תלוי בסוג האתר ובהיקף שלו. דף נחיתה מוכן בדרך כלל תוך <span class="todo">X ימי עבודה</span>, ואתר תדמית תוך <span class="todo">X שבועות</span>. את לוח הזמנים המדויק קובעים יחד בשיחת האפיון.</p></div>
+        </details>
+        <details name="faq">
+          <summary>מה כלול במחיר?</summary>
+          <div class="faq-a"><p>המחיר נקבע לפי היקף העבודה וכולל עיצוב, פיתוח, התאמה לנייד ומערכת ניהול. <span class="todo">לפרט: דומיין, אחסון, סבבי תיקונים, הזנת תוכן</span></p></div>
+        </details>
+        <details name="faq">
+          <summary>האם אפשר לעדכן תוכן לבד?</summary>
+          <div class="faq-a"><p>כן. כל אתר מגיע עם מערכת ניהול נוחה, כך שאפשר לעדכן טקסטים, תמונות ומוצרים בלי ידע טכני.</p></div>
+        </details>
+        <details name="faq">
+          <summary>האם יש תחזוקה לאחר ההשקה?</summary>
+          <div class="faq-a"><p><span class="todo">לפרט את מה שמוצע בפועל: חבילת תחזוקה, עדכונים, גיבויים, זמינות לתמיכה</span></p></div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section" id="contact" style="padding-block-start:0">
+    <div class="wrap contact">
+      <div class="contact-side">
+        <p class="path"><code>/contact</code><span>יצירת קשר</span></p>
+        <h2>בואו נבנה את האתר הבא שלכם</h2>
+        <p>ארבע שאלות קצרות, ונחזור אליכם עם הצעה שמתאימה לעסק.</p>
+      </div>
+      <div>
+        <form class="chat" id="lead-form" novalidate>
+          <div class="chat-head">
+            <span class="logo-mark" aria-hidden="true">&lt;<b>/</b>&gt;</span>
+            <div><b>עידן שטיינברג</b><small>זמינים לשיחה</small></div>
+          </div>
+          <label class="q" for="f-name">היי! איך קוראים לך?</label>
+          <div class="a"><input id="f-name" name="name" type="text" autocomplete="name" required aria-describedby="e-name" placeholder="שם מלא"><span class="err" id="e-name" aria-live="polite"></span></div>
+          <label class="q" for="f-phone">לאיזה מספר נחזור?</label>
+          <div class="a"><input id="f-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required aria-describedby="e-phone" placeholder="050-0000000"><span class="err" id="e-phone" aria-live="polite"></span></div>
+          <label class="q" for="f-email">ומייל? <span class="opt">(רשות)</span></label>
+          <div class="a"><input id="f-email" name="email" type="email" autocomplete="email" aria-describedby="e-email" placeholder="name@example.com"><span class="err" id="e-email" aria-live="polite"></span></div>
+          <label class="q" for="f-type">איזה אתר צריך? <span class="opt">(רשות)</span></label>
+          <div class="a"><select id="f-type" name="type">
+            <option value="">בחירה</option><option>אתר תדמית</option><option>דף נחיתה</option><option>חנות אינטרנטית</option><option>שדרוג אתר קיים</option><option>עדיין לא סגור</option>
+          </select></div>
+          <button class="btn" type="submit" id="f-submit">חזרו אליי עם פרטים
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 4L3 11l7 2 2 7z"/></svg></button>
+          <div class="bubble-status ok" id="form-ok" hidden role="status" tabindex="-1">
+            <strong id="ok-title">תודה! הפרטים התקבלו</strong>
+            <span>נחזור אליכם בהקדם עם כל הפרטים.</span>
+          </div>
+          <div class="bubble-status fail" id="form-fail" hidden role="alert" tabindex="-1">
+            <strong>השליחה לא הצליחה</strong>
+            <span>משהו השתבש בדרך. אפשר לנסות שוב, או לכתוב לנו ישר בוואטסאפ.</span>
+            <div class="actions">
+              <button class="btn btn-sm" type="button" id="f-retry">לנסות שוב</button>
+              <a class="btn btn-sm btn-ghost" href="https://wa.me/972500000000" target="_blank" rel="noopener">לוואטסאפ</a>
+            </div>
+          </div>
+          <p class="demo-note">גרסת הדגמה: הטופס עדיין לא מחובר. <span class="todo">לחבר לכתובת שליחה (FORM_ENDPOINT) ולמספר וואטסאפ אמיתי</span></p>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <a href="#top" class="logo"><span class="logo-mark" aria-hidden="true">&lt;<b>/</b>&gt;</span>עידן שטיינברג</a>
+        <p style="margin-block-start:14px;color:var(--on-navy-muted);max-width:36ch">בניית אתרי תדמית, דפי נחיתה וחנויות אינטרנטיות לעסקים.</p>
+      </div>
+      <div>
+        <h4>יצירת קשר</h4>
+        <ul>
+          <li>טלפון: <span class="todo">050-0000000</span></li>
+          <li>דוא״ל: <span class="todo">name@example.co.il</span></li>
+        </ul>
+      </div>
+      <div>
+        <h4>רשתות ומידע</h4>
+        <ul>
+          <li><span class="todo">קישורים לאינסטגרם / פייסבוק / לינקדאין</span></li>
+          <li><a href="#privacy">מדיניות פרטיות</a> <span class="todo">עמוד</span></li>
+          <li><a href="#accessibility">הצהרת נגישות</a> <span class="todo">עמוד</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year">2026</span> עידן שטיינברג</span>
+      <a href="#top">חזרה למעלה ↑</a>
+    </div>
+  </div>
+</footer>
+</div>
+
+<script>
+(function () {
+  var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var RTL = true;
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  /* Hero headline: word-by-word rise (words, never letters, for Hebrew) */
+  var title = document.querySelector('[data-split]');
+  if (title && !reduced) {
+    var i = 0;
+    (function wrapWords(node) {
+      Array.prototype.slice.call(node.childNodes).forEach(function (child) {
+        if (child.nodeType === 3) {
+          var frag = document.createDocumentFragment();
+          child.textContent.split(/(\s+)/).forEach(function (part) {
+            if (!part) return;
+            if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(part)); return; }
+            var w = document.createElement('span'); w.className = 'w';
+            var s = document.createElement('span'); s.textContent = part; s.style.setProperty('--i', i++);
+            w.appendChild(s); frag.appendChild(w);
+          });
+          node.replaceChild(frag, child);
+        } else if (child.nodeType === 1) { wrapWords(child); }
+      });
+    })(title);
+  }
+
+  /* Mobile nav */
+  var btn = document.querySelector('.nav-toggle'), nav = document.getElementById('site-nav');
+  var isOpen = function () { return btn.getAttribute('aria-expanded') === 'true'; };
+  var setNav = function (open) {
+    btn.setAttribute('aria-expanded', String(open));
+    btn.setAttribute('aria-label', open ? btn.dataset.labelClose : btn.dataset.labelOpen);
+    nav.dataset.open = String(open);
+    document.documentElement.classList.toggle('nav-locked', open);
+    if (open) { var a = nav.querySelector('a'); if (a) a.focus(); }
+  };
+  btn.addEventListener('click', function () { setNav(!isOpen()); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && isOpen()) { setNav(false); btn.focus(); } });
+  nav.addEventListener('click', function (e) { if (e.target.closest('a')) setNav(false); });
+  matchMedia('(min-width: 900px)').addEventListener('change', function (e) { if (e.matches) setNav(false); });
+
+  /* HERO: pick a business → the preview becomes that business's site */
+  var BIZ = {
+    cafe:     { url: 'shaked-cafe.co.il', layout: '', name: 'קפה שקד', pill: 'הזמנה', kicker: 'פתוח כל יום מ-7:00', title: 'הקפה הכי טוב בשכונה', text: 'קלייה מקומית, מאפים של הבוקר ומקום לשבת.', cta: 'להזמנת שולחן', links: ['תפריט', 'אודות', 'צרו קשר'] },
+    clinic:   { url: 'marom-clinic.co.il', layout: '', name: 'קליניקת מרום', pill: 'תור', kicker: 'פיזיותרפיה ושיקום', title: 'טיפול מקצועי, קרוב לבית', text: 'צוות מנוסה, תורים זמינים ומעקב אישי.', cta: 'לקביעת תור', links: ['טיפולים', 'צוות', 'שאלות'] },
+    boutique: { url: 'lia-boutique.co.il', layout: 'store', name: 'בוטיק ליה', pill: 'סל (2)', kicker: 'קולקציית סתיו', title: 'הקולקציה החדשה כבר כאן', text: 'משלוח עד הבית והחלפה בחנות.', cta: 'לחנות', links: ['חדש', 'שמלות', 'אקססוריז'] },
+    law:      { url: 'cohen-law.co.il', layout: '', name: 'כהן ושות׳', pill: 'ייעוץ', kicker: 'דיני עבודה ומשפחה', title: 'ליווי משפטי בגובה העיניים', text: 'מסבירים כל שלב, בלי אותיות קטנות.', cta: 'לייעוץ ראשוני', links: ['תחומים', 'המשרד', 'מאמרים'] },
+    fitness:  { url: 'tnua-studio.co.il', layout: '', name: 'סטודיו תנועה', pill: 'הרשמה', kicker: 'שיעור ראשון חינם', title: 'אימונים שמתאימים לכם', text: 'קבוצות קטנות, מאמנים מוסמכים ושעות גמישות.', cta: 'לשיעור ניסיון', links: ['שיעורים', 'מחירון', 'המאמנים'] }
+  };
+  var previews = Array.prototype.slice.call(document.querySelectorAll('[data-preview]'));
+  var stage = document.getElementById('stage');
+  var stageUrl = document.getElementById('stage-url');
+  var chips = Array.prototype.slice.call(document.querySelectorAll('.chip'));
+  var order = chips.map(function (c) { return c.dataset.biz; });
+  var current = 'cafe';
+  var applyBiz = function (key) {
+    if (key === current) return;
+    current = key;
+    var d = BIZ[key];
+    chips.forEach(function (c) { c.setAttribute('aria-pressed', String(c.dataset.biz === key)); });
+    stage.classList.add('swapping');
+    setTimeout(function () {
+      previews.forEach(function (p) {
+        p.className = 'mini biz-' + key;
+        if (d.layout) p.dataset.layout = d.layout; else delete p.dataset.layout;
+        p.querySelectorAll('[data-f]').forEach(function (el) { el.textContent = d[el.dataset.f]; });
+        var links = p.querySelector('.m-links');
+        if (links) links.innerHTML = d.links.map(function (l) { return '<span>' + l + '</span>'; }).join('');
+      });
+      stageUrl.textContent = d.url;
+      stage.classList.remove('swapping');
+    }, reduced ? 0 : 180);
+  };
+  var auto = null, userPicked = false;
+  chips.forEach(function (c) {
+    c.addEventListener('click', function () { userPicked = true; clearInterval(auto); applyBiz(c.dataset.biz); });
+  });
+  if (!reduced) {
+    var heroVisible = true;
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (e) { heroVisible = e[0].isIntersecting; }).observe(stage);
+    }
+    auto = setInterval(function () {
+      if (userPicked || !heroVisible || document.hidden) return;
+      applyBiz(order[(order.indexOf(current) + 1) % order.length]);
+    }, 3200);
+  }
+
+  /* SERVICES: store tile — fly to cart */
+  var addBtn = document.getElementById('add-cart'), cart = document.getElementById('mini-cart');
+  var cartN = document.getElementById('cart-n'), prodImg = document.getElementById('prod-img'), count = 0;
+  addBtn.addEventListener('click', function () {
+    count += 1;
+    var bump = function () {
+      cartN.textContent = count;
+      if (!reduced) cart.animate([{ transform: 'scale(1)' }, { transform: 'scale(1.2)' }, { transform: 'scale(1)' }], { duration: 320, easing: 'cubic-bezier(.34,1.56,.64,1)' });
+    };
+    var label = addBtn.textContent;
+    addBtn.textContent = 'נוסף ✓';
+    setTimeout(function () { addBtn.textContent = label; }, 1100);
+    if (reduced) { bump(); return; }
+    var s = prodImg.getBoundingClientRect(), c = cart.getBoundingClientRect();
+    var f = document.createElement('div');
+    f.className = 'flyer';
+    f.style.cssText = 'left:' + s.left + 'px;top:' + s.top + 'px;width:' + s.width + 'px;height:' + s.height + 'px;background:' + getComputedStyle(prodImg).backgroundImage;
+    document.body.appendChild(f);
+    var dx = c.left + c.width / 2 - (s.left + s.width / 2), dy = c.top + c.height / 2 - (s.top + s.height / 2);
+    f.animate([
+      { transform: 'translate(0,0) scale(1)', opacity: 1 },
+      { transform: 'translate(' + dx * .5 + 'px,' + (Math.min(0, dy) - 80) + 'px) scale(.5)', opacity: 1, offset: .45 },
+      { transform: 'translate(' + dx + 'px,' + dy + 'px) scale(.1)', opacity: .4 }
+    ], { duration: 650, easing: 'cubic-bezier(.65,0,.35,1)' }).finished.then(function () { f.remove(); bump(); });
+  });
+
+  /* WORK rail arrows (RTL-aware) */
+  var rail = document.getElementById('rail');
+  var step = function () { var card = rail.querySelector('.shot'); return card ? card.getBoundingClientRect().width + 28 : 300; };
+  document.getElementById('rail-next').addEventListener('click', function () { rail.scrollBy({ left: step() * (RTL ? -1 : 1), behavior: reduced ? 'auto' : 'smooth' }); });
+  document.getElementById('rail-prev').addEventListener('click', function () { rail.scrollBy({ left: step() * (RTL ? 1 : -1), behavior: reduced ? 'auto' : 'smooth' }); });
+
+  /* PROCESS: the site builds itself as the steps scroll */
+  var build = document.getElementById('build');
+  var steps = Array.prototype.slice.call(document.querySelectorAll('.step'));
+  var tpl = build.cloneNode(true); tpl.removeAttribute('id');
+  steps.forEach(function (st) {
+    var copy = tpl.cloneNode(true); copy.dataset.state = st.dataset.step;
+    st.querySelector('.step-mini').appendChild(copy);
+  });
+  var setStage = function (n) {
+    build.dataset.state = String(n);
+    steps.forEach(function (s, j) { s.classList.toggle('is-active', j === n); });
+  };
+  if ('IntersectionObserver' in window) {
+    document.getElementById('steps').classList.remove('no-js-step');
+    setStage(0);
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) setStage(Number(e.target.dataset.step)); });
+    }, { rootMargin: '-45% 0px -45% 0px' });
+    steps.forEach(function (s) { io.observe(s); });
+  }
+
+  /* CONTACT: chat form (demo mode until FORM_ENDPOINT is set) */
+  var FORM_ENDPOINT = '';
+  var form = document.getElementById('lead-form'), ok = document.getElementById('form-ok'), fail = document.getElementById('form-fail');
+  var submitBtn = document.getElementById('f-submit'), submitHTML = submitBtn.innerHTML;
+  var showErr = function (id, msg) {
+    document.getElementById('e-' + id).textContent = msg || '';
+    document.getElementById('f-' + id).setAttribute('aria-invalid', msg ? 'true' : 'false');
+    return !msg;
+  };
+  var validate = function () {
+    var name = form.name.value.trim(), phone = form.phone.value.replace(/[\s\-()]/g, ''), email = form.email.value.trim();
+    var v1 = showErr('name', name.length < 2 ? 'נא למלא שם מלא' : '');
+    var v2 = showErr('phone', !/^(\+?972|0)([23489]|5\d|7\d)\d{7}$/.test(phone) ? 'נא למלא מספר טלפון תקין, למשל 050-1234567' : '');
+    var v3 = showErr('email', email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ? 'כתובת המייל לא תקינה' : '');
+    return v1 && v2 && v3;
+  };
+  var send = function () {
+    if (!FORM_ENDPOINT) return new Promise(function (r) { setTimeout(r, 700); });
+    return fetch(FORM_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(Object.fromEntries(new FormData(form))) })
+      .then(function (res) { if (!res.ok) throw new Error('HTTP ' + res.status); });
+  };
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    ok.hidden = true; fail.hidden = true;
+    if (!validate()) { var bad = form.querySelector('[aria-invalid="true"]'); if (bad) bad.focus(); return; }
+    submitBtn.disabled = true; submitBtn.textContent = 'שולחים...';
+    send().then(function () {
+      var first = form.name.value.trim().split(/\s+/)[0];
+      document.getElementById('ok-title').textContent = 'תודה, ' + first + '! הפרטים התקבלו';
+      submitBtn.hidden = true; ok.hidden = false; ok.focus();
+    }).catch(function () {
+      fail.hidden = false; fail.focus();
+    }).finally(function () { submitBtn.disabled = false; submitBtn.innerHTML = submitHTML; });
+  });
+  document.getElementById('f-retry').addEventListener('click', function () { fail.hidden = true; submitBtn.focus(); });
+})();
+</script>

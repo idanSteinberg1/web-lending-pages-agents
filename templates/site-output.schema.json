@@ -1,0 +1,55 @@
+{
+  "type": "object",
+  "description": "Complete landing page, returned in parts so a server can assemble, store and edit them separately.",
+  "required": ["meta", "direction", "tokensCss", "sections", "css", "js", "todos"],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": ["title", "description", "lang", "dir"],
+      "properties": {
+        "title": { "type": "string", "description": "<= 60 chars" },
+        "description": { "type": "string", "description": "<= 155 chars" },
+        "lang": { "type": "string" },
+        "dir": { "type": "string", "enum": ["rtl", "ltr"] },
+        "fontsHref": { "type": "string", "description": "Google Fonts stylesheet URL" },
+        "ogTitle": { "type": "string" },
+        "ogDescription": { "type": "string" }
+      }
+    },
+    "direction": {
+      "type": "object",
+      "required": ["name", "mood", "signatureMoment"],
+      "properties": {
+        "name": { "type": "string" },
+        "mood": { "type": "array", "items": { "type": "string" } },
+        "signatureMoment": { "type": "string" }
+      }
+    },
+    "tokensCss": { "type": "string", "description": ":root { ... } design + motion tokens" },
+    "sections": {
+      "type": "array",
+      "description": "In page order. Header and footer are sections too.",
+      "items": {
+        "type": "object",
+        "required": ["id", "job", "html"],
+        "properties": {
+          "id": { "type": "string", "description": "kebab-case, used as the element id" },
+          "job": { "type": "string", "description": "One line: what this section must achieve" },
+          "html": { "type": "string", "description": "Complete HTML for the section, using token-based classes" },
+          "copy": {
+            "type": "object",
+            "description": "The text used in this section, keyed by role (headline, sub, cta...) for editing",
+            "additionalProperties": { "type": "string" }
+          }
+        }
+      }
+    },
+    "css": { "type": "string", "description": "Page CSS beyond tokens (components, signature moment)" },
+    "js": { "type": "string", "description": "Page JS (nav, tabs, micro-interactions). Empty string if none." },
+    "todos": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Every placeholder the client must supply (real reviews, photos, numbers)"
+    }
+  }
+}
