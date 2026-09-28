@@ -9,3 +9,6 @@ quick/*-shots/
 audit*/
 motion/
 *.webm
+
+# client media (patient photos, videos): never commit, keep in private storage
+projects/*/spec/media/
