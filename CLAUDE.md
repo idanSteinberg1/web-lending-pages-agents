@@ -11,7 +11,7 @@ Complete websites from a client spec (marketing sites, landing pages, small stor
 
 ## Pipeline (run by `/new-site`)
 1. intake → `brief.json` + `questions.md` (skill: spec-intake) — **checkpoint**
-2. strategy → `strategy.md` (agent: site-strategist, skill: conversion-sections)
+2. strategy → `strategy.md` (agent: site-strategist, skills: conversion-sections, treatment-landing for clinic treatments)
 3. art direction → 3 directions in `directions/` (agent: site-art-director, skills: art-direction, style-extractor) — **checkpoint**
 4. design system → `design/tokens.css`, base components
 5. content → `content/*.md` (agent: site-copywriter)

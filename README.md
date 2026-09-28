@@ -6,7 +6,7 @@
 
 - `.claude/commands/new-site.md`, `.claude/commands/quick-site.md`
 - `.claude/agents/site-*.md` (5 סוכנים)
-- `.claude/skills/*` (10 סקילים, כולל ui-components, motion-choreography, webgl-moments ו-payment-card-ui)
+- `.claude/skills/*` (11 סקילים, כולל ui-components, motion-choreography, webgl-moments, payment-card-ui ו-treatment-landing לדפי טיפולים וקליניקות)
 - `scripts/` (shoot, audit, record-motion, palette, contrast)
 - `templates/brief.schema.json`, `templates/site-output.schema.json`
 - `API.md` (הפעלה דרך ה-API עם פלט JSON מובנה)

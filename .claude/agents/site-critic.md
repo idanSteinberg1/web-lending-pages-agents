@@ -24,6 +24,7 @@ Input: `projects/<slug>`, round N. The site runs at http://localhost:4321 (ask t
    - Outcome moment: does the visitor see/try their own result within the first screen or two? Missing = max 5
    - Copy fit (does the layout serve the copy, no overflow, no orphan words in headlines)
    **Motion**: `node scripts/record-motion.mjs http://localhost:4321 qa/round-N/motion` (add `HEADED=1` on a machine with a GPU). Look at `desktop-sheet.png` and `mobile-sheet.png` (frames every 0.5s): is the intro choreographed, does the signature moment read clearly, is anything janky, overlapping or popping in late? Use `motion-report.json` for fps / jank / long tasks / CLS; if `softwareGL` is true, don't fail fps gates on that run alone.
+   For clinic/treatment sites, also run the `treatment-landing` QA checklist (results in first two screens, consent + honest captions, can't-do content, sourced claims, named clinician, price path).
    Also run the `ui-components` QA checks (hamburger, FAQ, tabs, keyboard, RTL) with Playwright at 390px.
 4. **Gates**: fill the table of CLAUDE.md quality gates with actual values → pass/fail.
 5. Write `qa/round-N/critique.md`:
