@@ -69,6 +69,12 @@ Every site must have:
 - mobile menu, FAQ accordion and tabs pass the `ui-components` QA checks (keyboard + RTL)
 - `npm run build` passes with no warnings about missing images/links
 
+## External skill: ui-ux-pro-max (account skill, if installed)
+Use it as a **rules and QA source**, not a style source:
+- Yes: UX and accessibility guidelines (`--domain ux`), forms, touch targets, responsive rules, GSAP presets (`--domain gsap`), stack guidance (`--stack astro|nextjs|html-tailwind`), and its pre-delivery checklist.
+- No: its `--design-system` colors, fonts and style picks never override the chosen direction, `art-direction`, `style-extractor` or the taste rules above. Its fonts are often Latin-only; Hebrew sites need Hebrew-capable fonts.
+- Treat its search results as recommendations; if a search returns nothing relevant, say so instead of guessing.
+
 ## Language & locale
 Hebrew client → `<html lang="he" dir="rtl">`, Hebrew-capable fonts, logical CSS properties only, gender-neutral copy (no slash forms). Keep code, file names and comments in English.
 

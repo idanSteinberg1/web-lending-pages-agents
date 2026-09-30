@@ -27,6 +27,7 @@ Next.js instead if `brief.stack` says so.
 - Build the **signature moment** exactly as the direction describes, with a reduced-motion fallback, using the `motion-choreography` / `webgl-moments` patterns.
 - Page choreography: hero intro + section reveals + the one signature pattern. Init through `initMotion()` so reduced motion and Astro page transitions are handled.
 - Before handing off, run `node scripts/record-motion.mjs http://localhost:4321 qa/preview-motion` and fix anything under the motion gates.
+- If the `ui-ux-pro-max` skill is available, check implementation details against it: `--domain ux` for the concern at hand (forms, focus, touch targets, loading states), `--stack astro` (or the project's stack), and `--domain gsap` for motion presets. Style/color/font output from it is ignored (see CLAUDE.md).
 - Images: `astro:assets` `<Image>` with width/height, AVIF/WebP, `loading="lazy"` except the LCP image (`fetchpriority="high"`).
 - Only logical CSS properties; RTL must be correct without per-page hacks.
 - No hardcoded colors, sizes or durations outside tokens.
